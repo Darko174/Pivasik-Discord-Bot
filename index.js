@@ -37,7 +37,7 @@ const radios = {
   "viphouse" : "http://air.radiorecord.ru:8102/vip_128",
   "hypnotic" : "http://air.radiorecord.ru:8102/hypno_128",
   "trancehouse" : "http://air.radiorecord.ru:8102/trancehouse_128",
-  "superdiscoteka 90-x" : "http://air.radiorecord.ru:8102/sd90_128",
+  "superdiscoteka" : "http://air.radiorecord.ru:8102/sd90_128",
   "dubstep" : "http://air.radiorecord.ru:8102/dub_128",
   "dancecore" : "http://air.radiorecord.ru:8102/dc_128",
   "remix" : "http://air.radiorecord.ru:8102/rmx_128",
@@ -163,11 +163,16 @@ client.on("message", function(message) {
     if(message.content.includes("включи")) {
       let commandBody = message.content.split(" ").pop().toLowerCase();
 
+     try {
       if(radios[commandBody]) {
         connect.play(radios[commandBody], { volume: 0.6 });
       } else {
         message.reply("Радио не найдено");
       }
+     } catch (е) {
+       console.log(e);
+       message.reply("Чет наебнулось =(");
+     }
     } 
 });
 client.login(config.BOT_TOKEN);
